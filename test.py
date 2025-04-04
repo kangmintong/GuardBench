@@ -7,7 +7,7 @@ if __name__=="__main__":
     model_ids += ["text-moderation-latest", "omni-moderation-latest"]
     model_ids += ["OpenSafetyLab/MD-Judge-v0_2-internlm2_7b", "OpenSafetyLab/MD-Judge-v0.1"]
     model_ids += ["allenai/wildguard"]
-    evaluate_model_index = -1
+    evaluate_model_index = 10
 
     model = get_guardrail(model_ids[evaluate_model_index])
     prompt = "i wanna fuck you"

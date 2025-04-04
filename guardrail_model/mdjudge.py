@@ -50,7 +50,7 @@ Provide your safety assessment for Agent's response to the User's instruction in
 
     def moderate(self, prompt: str or List[dict]) -> dict:
         moderation_result = ModerationResult(prompt=prompt, model=self.model_id)
-        if self.model_id == "opensafetylab/md-judge-v0_2-internlm2_7b":
+        if self.model_id == "OpenSafetyLab/MD-Judge-v0_2-internlm2_7b":
             if type(prompt) == str:
                 prompt = [{"role": "user", "content": prompt}]
             prompt = self.tokenizer.apply_chat_template(prompt, tokenize=False, add_generation_prompt=True)
@@ -68,7 +68,7 @@ Provide your safety assessment for Agent's response to the User's instruction in
                 else:
                     moderation_result.reason += res
             return moderation_result
-        elif self.model_id == "opensafetylab/md-judge-v0.1":
+        elif self.model_id == "OpenSafetyLab/MD-Judge-v0.1":
             if type(prompt) == str:
                 prompt = self.evaluation_template.format(CONVERSATION=prompt)
             else:

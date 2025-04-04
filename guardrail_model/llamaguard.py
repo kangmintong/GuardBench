@@ -41,20 +41,20 @@ class LlamaGuard(BaseGuardrailModel):
             moderation_result.flagged = False
 
         # determine category-wise likelihoods if flagged
-        output_ids = self.tokenizer.encode(result, return_tensors="pt")[0]
-        token_id_safe = int(self.tokenizer.encode("safe", return_tensors="pt").to("cuda")[0, -1])
-        token_id_unsafe = int(self.tokenizer.encode("unsafe", return_tensors="pt").to("cuda")[0, -1])
-        for output_id, score in zip(output_ids, scores):
-            if output_id == token_id_unsafe or output_id == token_id_safe:
-                probs_ = torch.softmax(score[0], dim=-1)
-                prob_safe = float(probs_[token_id_safe])
-                prob_unsafe = float(probs_[token_id_unsafe])
-                prob_unsafe /= (prob_safe + prob_unsafe)
-                moderation_result.prob_flagged = prob_unsafe
-            elif output_id in self.category_token_ids:
-                probs_ = torch.softmax(score[0], dim=-1)
-                probs_all = [float(probs_[tok_id]) for tok_id in self.category_token_ids]
-                normalization_fac = sum(probs_all)
-                category_scores = [p / normalization_fac for p in probs_all]
-                moderation_result.score = category_scores
+        # output_ids = self.tokenizer.encode(result, return_tensors="pt")[0]
+        # token_id_safe = int(self.tokenizer.encode("safe", return_tensors="pt").to("cuda")[0, -1])
+        # token_id_unsafe = int(self.tokenizer.encode("unsafe", return_tensors="pt").to("cuda")[0, -1])
+        # for output_id, score in zip(output_ids, scores):
+        #     if output_id == token_id_unsafe or output_id == token_id_safe:
+        #         probs_ = torch.softmax(score[0], dim=-1)
+        #         prob_safe = float(probs_[token_id_safe])
+        #         prob_unsafe = float(probs_[token_id_unsafe])
+        #         prob_unsafe /= (prob_safe + prob_unsafe)
+        #         moderation_result.prob_flagged = prob_unsafe
+        #     elif output_id in self.category_token_ids:
+        #         probs_ = torch.softmax(score[0], dim=-1)
+        #         probs_all = [float(probs_[tok_id]) for tok_id in self.category_token_ids]
+        #         normalization_fac = sum(probs_all)
+        #         category_scores = [p / normalization_fac for p in probs_all]
+        #         moderation_result.score = category_scores
         return moderation_result
