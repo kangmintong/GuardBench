@@ -5,12 +5,12 @@ from typing import List
 from .utils import ModerationResult
 
 class LlamaGuard(BaseGuardrailModel):
-    def __init__(self, model_id = "meta-llama/Llama-Guard-3-8B", device = "cuda"):
+    def __init__(self, model_id = "meta-llama/Llama-Guard-3-8B", device = "cuda", cache_dir = None):
         dtype = torch.bfloat16
         self.model_id = model_id
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
-        self.model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, device_map=device)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir=cache_dir)
+        self.model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, device_map=device, cache_dir=cache_dir)
 
         if model_id == "meta-llama/Llama-Guard-3-8B":
             self.categories = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14']

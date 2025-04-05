@@ -5,11 +5,11 @@ from typing import List
 from .utils import ModerationResult
 
 class MDJudge(BaseGuardrailModel):
-    def __init__(self, model_id = "OpenSafetyLab/MD-Judge-v0_2-internlm2_7b", device = "cuda"):
+    def __init__(self, model_id = "OpenSafetyLab/MD-Judge-v0_2-internlm2_7b", device = "cuda", cache_dir = None):
         self.model_id = model_id
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
-        self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map=device, trust_remote_code=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True, cache_dir=cache_dir)
+        self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map=device, trust_remote_code=True, cache_dir=cache_dir)
 
         # used for OpenSafetyLab/MD-Judge-v0.1
         self.evaluation_template = """

@@ -5,12 +5,12 @@ from typing import List
 from .utils import ModerationResult
 
 class SheildGemma(BaseGuardrailModel):
-    def __init__(self, model_id = "google/shieldgemma-2b", device = "cuda"):
+    def __init__(self, model_id = "google/shieldgemma-2b", device = "cuda", cache_dir = None):
         dtype = torch.bfloat16
         self.model_id = model_id
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
-        self.model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, device_map=device)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir=cache_dir)
+        self.model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, device_map=device, cache_dir=cache_dir)
 
     def moderate(self, prompt: str or List[dict]) -> dict:
         moderation_result = ModerationResult(prompt=prompt, model=self.model_id)
