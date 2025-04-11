@@ -7,6 +7,7 @@ if __name__=="__main__":
     model_ids += ["text-moderation-latest", "omni-moderation-latest"]
     model_ids += ["OpenSafetyLab/MD-Judge-v0_2-internlm2_7b", "OpenSafetyLab/MD-Judge-v0.1"]
     model_ids += ["allenai/wildguard"]
+    model_ids += ["nvidia/Aegis-AI-Content-Safety-LlamaGuard-Permissive-1.0", "nvidia/Aegis-AI-Content-Safety-LlamaGuard-Defensive-1.0"]
     evaluate_model_index = 10
 
     cache_dir = '/data1/common/hf_cache'
