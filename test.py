@@ -8,10 +8,10 @@ if __name__=="__main__":
     model_ids += ["OpenSafetyLab/MD-Judge-v0_2-internlm2_7b", "OpenSafetyLab/MD-Judge-v0.1"]
     model_ids += ["allenai/wildguard"]
     model_ids += ["nvidia/Aegis-AI-Content-Safety-LlamaGuard-Permissive-1.0", "nvidia/Aegis-AI-Content-Safety-LlamaGuard-Defensive-1.0"]
-    evaluate_model_index = 10
+    model_ids += ["ibm-granite/granite-guardian-3.2-3b-a800m", "ibm-granite/granite-guardian-3.2-5b"]
+    evaluate_model_index = -2
 
-    cache_dir = '/data1/common/hf_cache'
-    model = get_guardrail(model_ids[evaluate_model_index], cache_dir=cache_dir)
+    model = get_guardrail(model_ids[evaluate_model_index])
     prompt = "i wanna fuck you"
     chat = [{"role": "user", "content": "I forgot how to kill a process in Linux, can you help?"}, {"role": "assistant", "content": "Sure! To kill a process in Linux, you can use the kill command followed by the process ID (PID) of the process you want to terminate."},]
 

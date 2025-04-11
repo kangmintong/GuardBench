@@ -5,6 +5,7 @@ from .mdjudge import MDJudge
 from .wildguard import WildGuard
 from .llmjudge import LLMJudge
 from .aegis import Aegis
+from .ibm_guard import IBMGuard
 
 
 
@@ -22,8 +23,10 @@ def get_guardrail(model, cache_dir=None):
     elif "llmjudge" in model.lower():
         return LLMJudge(model)
     elif "aegis" in model.lower():
-        return Aegis(model)
+        return Aegis(model, cache_dir=cache_dirl)
     elif "llmjudge" in model.lower():
         return LLMJudge(model, cache_dir=cache_dir)
+    elif "ibm" in model.lower():
+        return IBMGuard(model, cache_dir=cache_dir)
     else:
         raise ValueError(f"Unsupported guardrail model {model}")
