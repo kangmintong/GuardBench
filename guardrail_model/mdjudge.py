@@ -83,13 +83,11 @@ Provide your safety assessment for Agent's response to the User's instruction in
 
                     str_prompt += f"{role}: {content}\n"
                 prompt = self.evaluation_template.format(CONVERSATION=str_prompt)
-            print(prompt)
             inputs = self.tokenizer(prompt, return_tensors="pt", add_special_tokens=True).to("cuda")
             outputs = self.model.generate(**inputs, max_new_tokens=32)
             resp = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
             resp = resp[0][len(prompt):]
             resp = resp.strip()
-            print(f'resp: {resp}')
             moderation_result.flagged = True if "unsafe" in resp.lower() else False
             return moderation_result
         else:
