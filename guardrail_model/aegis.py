@@ -164,8 +164,6 @@ Should not
         sequence, scores = output.sequences, output.scores
         result = self.tokenizer.decode(sequence[0][input_ids.shape[-1]:], skip_special_tokens=False)
 
-        print(result)
-
         if "unsafe" in result:
             moderation_result.flagged = True
             moderation_result.reason = result.strip().split("\n")[-1]
